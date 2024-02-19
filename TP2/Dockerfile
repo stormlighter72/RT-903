@@ -1,21 +1,21 @@
 # Use the official Golang image as the base image
-FROM golang:1.16
+FROM golang:latest
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the source code into the container
-COPY motd-api.go .
+# Copy the local code to the container's working directory
+COPY . .
 
 # Build the Go application
 RUN go build -o motd-api .
 
-# Expose the port that the application will run on
-EXPOSE 8080
+# Expose the port on which the application will run
+EXPOSE 5555
 
-# Set environment variables for the application
-ENV MESSAGE="Default Message"
-ENV APP_PORT=8080
+# Set environment variables
+ENV APP_PORT=5555
+ENV MESSAGE="Hello World!"
 
-# Command to run the application
+# Command to run the executable
 CMD ["./motd-api"]
