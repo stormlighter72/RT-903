@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: motd-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: motd
+  template:
+    metadata:
+      labels:
+        app: motd
+    spec:
+      initContainers:
+      - name: init-container
+        image: corentinrichard/init-container:latest
+        env:
+        - name: SECRET_MESSAGE
+          valueFrom:
+            secretKeyRef:
+              name: motd-secret
+              key: message
+        volumeMounts:
+        - name: shared-data
+          mountPath: /shared-data
+      containers:
+      - name: motd-container
+        image: corentinrichard/rt903:latest
+        ports:
+        - containerPort: 5555
+        env:
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: message
+      volumes:
+      - name: shared-data
+        emptyDir: {}

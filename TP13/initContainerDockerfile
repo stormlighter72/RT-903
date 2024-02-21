@@ -1,0 +1,10 @@
+FROM alpine:latest
+
+# Copiez le script qui utilise le Secret pour créer le fichier
+COPY init-script.sh /usr/local/bin/init-script.sh
+
+# Donne les permissions d'exécution au script
+RUN chmod +x /usr/local/bin/init-script.sh
+
+# Exécute le script dans l'InitContainer
+CMD ["/usr/local/bin/init-script.sh"]
