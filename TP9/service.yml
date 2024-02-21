@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: babystep
+  namespace: max-coco-matt
+spec:
+  clusterIP: 10.8.2.10
+  ports:
+  - name: http
+    port: 5555
+    protocol: TCP
+    targetPort: 5555
+  selector:
+    app: babystep
+  type: ClusterIP

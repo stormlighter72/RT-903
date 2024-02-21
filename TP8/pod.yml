@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: babystep
+  labels:
+    app: babystep
+spec:
+  containers:
+  - name: babystep
+    image: corentinrichard/rt903
