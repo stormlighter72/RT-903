@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: motd-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: motd
+  template:
+    metadata:
+      labels:
+        app: motd
+    spec:
+      containers:
+      - name: motd-container
+        image: corentinrichard/rt903:latest
+        ports:
+        - containerPort: 5555
+        env:
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: my-configmap
+              key: message
